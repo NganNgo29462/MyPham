@@ -1,0 +1,314 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Doan_thuchanhnghenghiep.SiteMaster" %>
+<!DOCTYPE html>
+<html >
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+        <asp:ContentPlaceHolder ID="head" runat="server">  </asp:ContentPlaceHolder>
+    <style type="text/css">
+        body, header {
+            font-family: "Plus Jakarta Sans", sans-serif;
+        }
+        header {
+            position: relative;
+            width: 100%;
+            height: 70px;
+            background-color: #FEFBF4;
+            backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 80;
+        }
+        .logoimg {
+            width: 112px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+        }
+        .navigation {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: space-between;
+        }
+        .nav-buttons {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 50px;
+        }
+        .navigation ul {
+            list-style: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            width:100%;
+            justify-content: space-between;
+            display: flex;
+        }
+        .navigation ul li {
+            display: inline-block;
+            position: relative;
+            margin: 0 15px;
+        }
+        .navigation a, .btn_close_x {
+            font-size: 1.1em;
+            color: black;
+            text-decoration: none;
+            font-weight: 500;
+            background-color: transparent;
+            border: none;
+            position: relative;
+        }
+        .navigation a:hover::after,
+        .navigation a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 2px;
+            background: black;
+            border-radius: 5px;
+            transform-origin: center;
+            transform: scaleX(0);
+            transition: transform .5s;
+        }
+        .navigation a:hover::after {
+            transform: scaleX(1);
+        }
+        .btnLogin  {
+            width: 35px;
+            height: 35px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5em;
+            margin-right: 40px;
+            transition: .5s;
+
+        }
+        .btn_sanpham{
+            
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5em;
+            margin-right: 40px;
+            transition: .5s;
+            font-size: 1.1em;
+            color: black;
+            text-decoration: none;
+            font-weight: 500;
+            background-color: transparent;
+            border: none;
+            position: relative;
+        }
+        .main {
+            width: 100%;
+            margin: 0;
+            background-color: rgba(31, 28, 23);
+        }
+        .modal-background {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1000;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .modal-content {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 300px;
+            height: calc(100vh - 70px);
+            background-color: #FEFBF4;
+            padding: 20px;
+            border-left: 3px solid #C5A25D;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: left 0.3s ease-in-out;
+        }
+        .modal-content td {
+            color: black;
+            margin-top: 5px;
+            font-size: 20px;
+            text-align: center;
+        }
+        .modal-content ul {
+            list-style: none;
+            padding: 0;
+        }
+        .modal-content ul li {
+            margin-bottom: 20px;
+        }
+        .modal-content ul li a {
+            color: black;
+            text-decoration: none;
+            transition: .5s;
+        }
+        .modal-content ul li a:hover {
+            text-decoration: underline;
+        }
+        .footer_area {
+            margin-top: 0;
+            padding: 0;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .single_footer {
+            width: 380px;
+        }
+        .single_footer h4 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            color: rgba(197, 162, 93);
+        }
+        .single_footer ul {
+            list-style: none;
+        }
+        .single_footer ul li {
+            margin-bottom: 20px;
+        }
+        .single_footer ul li a {
+            color: rgba(197, 162, 93);
+            text-decoration: none;
+            transition: .5s;
+        }
+        .single_footer ul li a:hover {
+            text-decoration: underline;
+        }
+        .icon {
+            color: rgba(197, 162, 93);
+            border: 1px solid rgba(197, 162, 93);
+            font-size: 1.2em;
+            width: 40px;
+            height: 40px;
+            display: inline-block;
+            text-align: center;
+            line-height: 43px;
+            border-radius: 50%;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        .btn {
+            height: 40px;
+            background-color: #C5A25D;
+            color: white;
+            border: none;
+            width: 150px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Segoe UI';
+            font-weight: bold;
+            font-size: 16px;
+            margin: 0 20px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #FEFBF4;
+            color: #C5A25D;
+            border-color: #C5A25D;
+        }
+        .btn_con {
+            display: flex;
+            margin: 10px;
+            justify-content: center;
+        }
+        .btn3 {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form runat="server">
+        <!-- Header -->
+        <header>
+            <nav class="navigation">
+
+                <ul>
+                    <li><asp:Button ID="btnShowModal" runat="server" Text="Sản phẩm" OnClick="btnShowModal_Click" CssClass="btn_sanpham" /></li>
+                    <li><asp:Button ID="btnGT" runat="server" Text="Giới thiệu" OnClick="btnGT_Click" CssClass="btn_sanpham" /></li>
+                    <li><asp:Button ID="btnLH" runat="server" Text="Liên hệ" OnClick="btnLH_Click" CssClass="btn_sanpham" /></li>
+                    <li><asp:Image ID="LogoImage" runat="server" CssClass="logoimg" ImageUrl="~/Hinh/Cocoon-Logo.png" /></li>
+                    <li><asp:ImageButton ID="BTsearch" runat="server" CssClass="btnLogin" ImageUrl="~/Hinh/home-button.PNG" OnClick="btnSearch_Click" /></li>
+                    <li><asp:ImageButton ID="BTcart" runat="server" CssClass="btnLogin" ImageUrl="~/Hinh/shopping-cart.PNG" OnClick="btnCart_Click" /></li>
+                    <li><asp:ImageButton ID="BTlogin" runat="server" CssClass="btnLogin" ImageUrl="~/Hinh/user.PNG" OnClick="btnLogin_Click" /></li>
+                    <li><asp:ImageButton ID="BT3" runat="server" CssClass="btn3" ImageUrl="~/Hinh/menu.PNG" OnClick="btnSearch_Click" /></li>
+                </ul>
+            </nav>
+            <div id="modalBackground" class="modal-background" runat="server">
+                <asp:Panel ID="pnlModal" runat="server" CssClass="modal-content">
+                    <table>
+                        <tr>
+                            <td>SẢN PHẨM</td>
+                            <td><asp:Button ID="btnCloseModal" runat="server" Text="X" OnClick="btnCloseModal_Click" CssClass="btn_close_x" /></td>
+                        </tr>
+                    </table>
+                    <ul>
+                        <li><a href="Sanpham.aspx">Tất cả sản phẩm</a></li>
+                        <li><a href="Chamsocda.aspx">Chăm sóc da</a></li>
+                        <li><a href="Chamsoctoc.aspx">Chăm sóc tóc</a></li>
+                        <li><a href="Tamduongthe.aspx">Tắm & Dưỡng thể</a></li>
+                        <li><a href="Duongmoi.aspx">Dưỡng môi</a></li>
+                        <li><a href="Combo.aspx">Combo/Bộ sản phẩm</a></li>
+                    </ul>
+                </asp:Panel>
+            </div>
+        </header>
+    <section id="homecontent">
+        <asp:ContentPlaceHolder ID="cph_homecontent" runat="server"></asp:ContentPlaceHolder>
+    </section>
+        <!-- Footer -->
+        <footer class="footer_area">
+        <div class="main">
+            <div class="footer">
+            <div class="single_footer">
+                <h4>Hỗ trợ</h4>
+                <ul>
+                    <li><a href="">Hỏi đáp</a></li>
+                    <li><a href="https://cocoonvietnam.com/trang/chinh-sach-ban-hang">Chính sách bán hàng</a></li>
+                    <li><a href="https://cocoonvietnam.com/trang/dieu-khoan-bao-mat">Điều khoản bảo mật</a></li>
+                    <li><a href="https://cocoonvietnam.com/trang/dieu-kien-chung">Điều kiện chung</a></li>
+                    <li><a href="">Liên hệ chúng tôi</a></li>
+                </ul>
+            </div>
+            <div class="single_footer">
+                <h4>Về Cocoon</h4>
+                <ul>
+                    <li><a href="https://cocoonvietnam.com/trang/cau-chuyen-thuong-hieu">Câu chuyện thương hiệu</a></li>
+                    <li><a href="">Giá trị cốt lõi</a></li>
+                    <li><a href="">Trách nhiệm cộng đồng</a></li>
+                    <li><a href="">Tìm hiểu nguyên liệu</a></li>
+                </ul>
+            </div>
+            <div class="single_footer">
+                <h4>Mạng xã hội</h4>
+                <ul>
+                    <li><span class="icon"><ion-icon name="logo-facebook"></ion-icon></span><a href="https://www.facebook.com/CocoonVietnamOfficial">Facebook</a></li>
+                    <li><span class="icon"><ion-icon name="logo-instagram"></ion-icon></span><a href="https://www.instagram.com/cocoon.vietnam">Instagram</a></li>
+                    <li><span class="icon"><ion-icon name="logo-youtube"></ion-icon></span><a href="https://www.youtube.com/channel/UChaXgZ8kSpQDFgfm2X-kwTg">Youtube</a></li>
+                </ul>
+            </div>
+        </div>
+        </div>
+    </footer>
+    </form>
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
